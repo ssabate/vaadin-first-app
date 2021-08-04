@@ -32,6 +32,17 @@ public class Contact extends AbstractEntity implements Cloneable{
     @NotNull
     @NotEmpty
     private String email = "";
+
+    public Contact(){}
+
+    public Contact(String firstName, String lastName, Company company, Status status, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.company = company;
+        this.status = status;
+        this.email = email;
+    }
+
     public String getEmail() {
         return email;
     }
