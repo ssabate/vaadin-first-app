@@ -1,18 +1,21 @@
 package com.vaadin.tutorial.crm.backend.service;
 
-import com.vaadin.tutorial.crm.backend.entity.Company;
-import com.vaadin.tutorial.crm.backend.entity.Contact;
-import com.vaadin.tutorial.crm.backend.repository.CompanyRepository;
-import com.vaadin.tutorial.crm.backend.repository.ContactRepository;
-import org.springframework.stereotype.Service;
-
-import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import javax.annotation.PostConstruct;
+
+import org.springframework.data.domain.Example;
+import org.springframework.stereotype.Service;
+
+import com.vaadin.tutorial.crm.backend.entity.Company;
+import com.vaadin.tutorial.crm.backend.entity.Contact;
+import com.vaadin.tutorial.crm.backend.repository.CompanyRepository;
+import com.vaadin.tutorial.crm.backend.repository.ContactRepository;
 
 @Service
 public class ContactService {
@@ -29,6 +32,15 @@ public class ContactService {
     public List<Contact> findAll() {
         return contactRepository.findAll();
     }
+    
+    //Filtering the search
+    public List<Contact> findAll(String stringFilter) { 
+    	if (stringFilter == null || stringFilter.isEmpty()) { 
+    	return contactRepository.findAll();
+    	} else {
+    	return contactRepository.search(stringFilter); 
+    	}
+    	}
 
     public long count() {
         return contactRepository.count();
